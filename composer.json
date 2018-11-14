@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "MF\\Stringify\\": "src/"
-        }
+        },
+        "files": [
+            "src/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
