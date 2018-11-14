@@ -15,7 +15,47 @@ composer require mf/stringify
 
 ## Usage
 
-TODO
+### By class and static method
+
+```php
+use MF\Stringify\Stringify;
+
+echo Stringify::stringify([1, 2, 3]);   // "[1, 2, 3]"
+```
+
+### By standalone function
+```php
+use function MF\Stringify\stringify;
+
+echo stringify([1, 2, 3]);   // "[1, 2, 3]"
+```
+
+**Bonus**: Standalone function may be used through a constant with its FQN
+```php
+use const MF\Stringify\stringify;
+
+$result = array_map(stringify, [1, 'two']); // ['1', '"two"']
+```
+
+## Example
+
+_NOTE: values longer than 100 chars is shrinked to 100 chars with `...` suffix_
+
+For easier examples, let's use a standalone function
+
+| Type | PHP | Result (_string_) |
+| ---  | --- | ---    |
+| NULL | `stringify(null);` | `null` |
+| bool | `stringify(true);` | `true` |
+| bool | `stringify(false);` | `false` |
+| string | `stringify('');` | `""` |
+| string | `stringify('Some string');` | `"Some string"` |
+| int | `stringify(42);` | `42` |
+| float | `stringify(3.14);` | `3.14` |
+| array | `stringify([1, 2, 3]);` | `[1, 2, 3]` |
+| array | `stringify(['foo' => 'bar']);` | `["foo" => "bar"]` |
+| array | `stringify(['person' => ['name' => 'Peter Parker'], 'alterego' => 'spider-man']);` | `["person" => ["name" => "Peter Parker"], "alterego" => "spider-man"]` |
+| object | `stringify(new \Foo\Bar());` | `Foo\Bar` |
 
 ## Changelog
 For latest changes see [CHANGELOG.md](CHANGELOG.md) file. We follow [Semantic Versioning](https://semver.org/).
