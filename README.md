@@ -56,6 +56,8 @@ For easier examples, let's use a standalone function
 | array | `stringify(['foo' => 'bar']);` | `["foo" => "bar"]` |
 | array | `stringify(['person' => ['name' => 'Peter Parker'], 'alterego' => 'spider-man']);` | `["person" => ["name" => "Peter Parker"], "alterego" => "spider-man"]` |
 | object | `stringify(new \Foo\Bar());` | `Foo\Bar` |
+| object | `stringify(new \DateTime());` | `DateTime { 2018-11-15T10:20:30+00:00 }` |
+| object | `stringify(Seq::range('1..4'));` | `MF\Collection\Immutable\Seq [1, 2, 3, 4]` |
 
 ## Changelog
 For latest changes see [CHANGELOG.md](CHANGELOG.md) file. We follow [Semantic Versioning](https://semver.org/).
