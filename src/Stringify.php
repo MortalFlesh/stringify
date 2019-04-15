@@ -5,6 +5,8 @@ namespace MF\Stringify;
 class Stringify
 {
     /**
+     * @param mixed $value of any type
+     *
      * @example
      * Stringify::stringify(null);              // null
      * Stringify::stringify(true);              // true
@@ -16,10 +18,8 @@ class Stringify
      * Stringify::stringify([1, 2, 3]);         // [1, 2, 3]
      * Stringify::stringify(['foo' => 'bar']);  // ["foo" => "bar"]
      * Stringify::stringify(new \Foo\Bar());    // Foo\Bar
-     *
-     * @param mixed $value of any type
      */
-    public static function stringify($value, bool $fullOutput = false): string
+    public static function stringify($value, bool $shrinkLongOutput = true): string
     {
         if ($value === null) {
             return 'null';
@@ -32,19 +32,19 @@ class Stringify
         }
 
         if (\is_string($value)) {
-            return sprintf('"%s"', self::shrink($value, $fullOutput));
+            return sprintf('"%s"', self::shrink($value, $shrinkLongOutput));
         }
 
         if (\is_scalar($value)) {
-            return self::shrink((string) $value, $fullOutput);
+            return self::shrink((string) $value, $shrinkLongOutput);
         }
 
         if (\is_array($value)) {
-            return self::stringifyArray($value, $fullOutput);
+            return self::stringifyArray($value, $shrinkLongOutput);
         }
 
         if (\is_object($value)) {
-            return self::stringifyObject($value, $fullOutput);
+            return self::stringifyObject($value, $shrinkLongOutput);
         }
 
         if (\is_resource($value)) {
@@ -54,14 +54,14 @@ class Stringify
         return \gettype($value);
     }
 
-    private static function shrink(string $value, bool $fullOutput): string
+    private static function shrink(string $value, bool $shrinkLongOutput): string
     {
-        return !$fullOutput && \strlen($value) > 100
+        return $shrinkLongOutput && \strlen($value) > 100
             ? sprintf('%s...', \substr($value, 0, 97))
             : $value;
     }
 
-    private static function stringifyArray(array $value, bool $fullOutput): string
+    private static function stringifyArray(array $value, bool $shrinkLongOutput): string
     {
         if (empty($value)) {
             return '[]';
@@ -76,10 +76,10 @@ class Stringify
             return $ignoreKeys
                 ? self::stringify($value)
                 : sprintf('%s => %s', self::stringify($key), self::stringify($value));
-        }, $keys, $values)), $fullOutput));
+        }, $keys, $values)), $shrinkLongOutput));
     }
 
-    private static function stringifyObject($value, bool $fullOutput): string
+    private static function stringifyObject($value, bool $shrinkLongOutput): string
     {
         $valueClass = \get_class($value);
 
@@ -103,7 +103,7 @@ class Stringify
         }
 
         if ($value instanceof \Traversable) {
-            return sprintf('%s %s', $valueClass, self::stringifyArray(iterator_to_array($value), $fullOutput));
+            return sprintf('%s %s', $valueClass, self::stringifyArray(iterator_to_array($value), $shrinkLongOutput));
         }
 
         if ($value instanceof \DateTimeInterface) {
@@ -114,7 +114,7 @@ class Stringify
             return sprintf(
                 '%s {%s}',
                 $valueClass,
-                self::shrink(\trim((string) \json_encode($value->jsonSerialize()), '{}'), $fullOutput)
+                self::shrink(\trim((string) \json_encode($value->jsonSerialize()), '{}'), $shrinkLongOutput)
             );
         }
 
