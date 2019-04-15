@@ -5,6 +5,8 @@ namespace MF\Stringify;
 const stringify = __NAMESPACE__ . '\\stringify';
 
 /**
+ * @param mixed $value of any type
+ *
  * @example
  * stringify(null);              // null
  * stringify(true);              // true
@@ -16,8 +18,6 @@ const stringify = __NAMESPACE__ . '\\stringify';
  * stringify([1, 2, 3]);         // [1, 2, 3]
  * stringify(['foo' => 'bar']);  // ["foo" => "bar"]
  * stringify(new \Foo\Bar());    // Foo\Bar
- *
- * @param mixed $value of any type
  */
 function stringify($value): string
 {

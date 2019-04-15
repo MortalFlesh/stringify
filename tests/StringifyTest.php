@@ -18,7 +18,7 @@ class StringifyTest extends AbstractTestCase
     /**
      * @dataProvider provideValue
      *
-     * @param mixed $value of any type
+     * @param mixed $value
      */
     public function testShouldStringifyValue($value, string $expected): void
     {
@@ -124,9 +124,38 @@ class StringifyTest extends AbstractTestCase
     }
 
     /**
+     * @dataProvider provideLongOutput
+     *
+     * @param mixed $value
+     */
+    public function testShouldStringifyValueButNotShrinkLongOutput($value, string $expected): void
+    {
+        $output = Stringify::stringify($value, false);
+
+        $this->assertSame($expected, $output);
+    }
+
+    public function provideLongOutput(): array
+    {
+        return [
+            // value, expected
+            'long json' => [
+                new Json([
+                    'firstName' => 'Peter',
+                    'surname' => 'Parker',
+                    'address' => ['city' => 'New York'],
+                    'alterego' => 'Spider-Man',
+                    'superpower' => 'spider-senses',
+                ]),
+                'MF\Stringify\Fixture\Json {"firstName":"Peter","surname":"Parker","address":{"city":"New York"},"alterego":"Spider-Man","superpower":"spider-senses"}',
+            ],
+        ];
+    }
+
+    /**
      * @dataProvider provideValue
      *
-     * @param mixed $value of any type
+     * @param mixed $value
      */
     public function testShouldStringifyValueViaFunction($value, string $expected): void
     {
