@@ -8,6 +8,8 @@ Changelog rules:
 -->
 
 ## Unreleased
+
+## 1.1.0 - 2019-04-15
 - Stringify object more verbosely - depending on object type
 
 ## 1.0.0 - 2018-11-14
