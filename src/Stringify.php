@@ -32,7 +32,7 @@ class Stringify
         }
 
         if (\is_string($value)) {
-            return sprintf('"%s"', self::shrink($value, $shrinkLongOutput));
+            return \sprintf('"%s"', self::shrink($value, $shrinkLongOutput));
         }
 
         if (\is_scalar($value)) {
@@ -48,7 +48,7 @@ class Stringify
         }
 
         if (\is_resource($value)) {
-            return sprintf('resource<%s>', \get_resource_type($value));
+            return \sprintf('resource<%s>', \get_resource_type($value));
         }
 
         return \gettype($value);
@@ -57,7 +57,7 @@ class Stringify
     private static function shrink(string $value, bool $shrinkLongOutput): string
     {
         return $shrinkLongOutput && \strlen($value) > 100
-            ? sprintf('%s...', \substr($value, 0, 97))
+            ? \sprintf('%s...', \substr($value, 0, 97))
             : $value;
     }
 
@@ -67,15 +67,15 @@ class Stringify
             return '[]';
         }
 
-        $keys = array_keys($value);
-        $values = array_values($value);
+        $keys = \array_keys($value);
+        $values = \array_values($value);
         [$firstKey] = $keys;
         $ignoreKeys = $firstKey === 0;
 
-        return sprintf('[%s]', self::shrink(implode(', ', array_map(function ($key, $value) use ($ignoreKeys) {
+        return \sprintf('[%s]', self::shrink(\implode(', ', \array_map(function ($key, $value) use ($ignoreKeys) {
             return $ignoreKeys
                 ? self::stringify($value)
-                : sprintf('%s => %s', self::stringify($key), self::stringify($value));
+                : \sprintf('%s => %s', self::stringify($key), self::stringify($value));
         }, $keys, $values)), $shrinkLongOutput));
     }
 
@@ -84,7 +84,7 @@ class Stringify
         $valueClass = \get_class($value);
 
         if ($value instanceof \Throwable) {
-            return sprintf(
+            return \sprintf(
                 '%s { "%s", %s, %s #%s }',
                 $valueClass,
                 $value->getMessage(),
@@ -94,24 +94,24 @@ class Stringify
             );
         }
 
-        if (method_exists($value, '__toString')) {
-            return sprintf('%s { %s }', $valueClass, $value->__toString());
+        if (\method_exists($value, '__toString')) {
+            return \sprintf('%s { %s }', $valueClass, $value->__toString());
         }
 
-        if (method_exists($value, 'toString')) {
-            return sprintf('%s { %s }', $valueClass, $value->toString());
+        if (\method_exists($value, 'toString')) {
+            return \sprintf('%s { %s }', $valueClass, $value->toString());
         }
 
         if ($value instanceof \Traversable) {
-            return sprintf('%s %s', $valueClass, self::stringifyArray(iterator_to_array($value), $shrinkLongOutput));
+            return \sprintf('%s %s', $valueClass, self::stringifyArray(\iterator_to_array($value), $shrinkLongOutput));
         }
 
         if ($value instanceof \DateTimeInterface) {
-            return sprintf('%s { %s }', $valueClass, $value->format(\DateTime::ATOM));
+            return \sprintf('%s { %s }', $valueClass, $value->format(\DateTime::ATOM));
         }
 
-        if (interface_exists(\JsonSerializable::class) && function_exists('json_encode') && $value instanceof \JsonSerializable) {
-            return sprintf(
+        if (\interface_exists(\JsonSerializable::class) && \function_exists('json_encode') && $value instanceof \JsonSerializable) {
+            return \sprintf(
                 '%s {%s}',
                 $valueClass,
                 self::shrink(\trim((string) \json_encode($value->jsonSerialize()), '{}'), $shrinkLongOutput)

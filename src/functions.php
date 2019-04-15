@@ -23,3 +23,9 @@ function stringify($value): string
 {
     return Stringify::stringify($value);
 }
+
+function sprintf($format, ...$args)
+{
+    return \sprintf('%A');
+}
+
