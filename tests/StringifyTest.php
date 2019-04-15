@@ -52,7 +52,7 @@ class StringifyTest extends AbstractTestCase
             // class
             'class' => [new SomeClass(), 'MF\\Stringify\\Fixture\\SomeClass'],
             // resource
-            'resource' => [fopen(__DIR__ . '/StringifyTest.php', 'r'), 'resource<stream>'],
+            'resource' => [fopen(__DIR__ . '/StringifyTest.php', 'rb'), 'resource<stream>'],
             // array
             'array - empty' => [[], '[]'],
             'array - of mixed' => [
@@ -65,9 +65,10 @@ class StringifyTest extends AbstractTestCase
                     3.14,
                     [1, 2, 3],
                     new SomeClass(),
-                    fopen(__DIR__ . '/StringifyTest.php', 'r'),
+                    fopen(__DIR__ . '/StringifyTest.php', 'rb'),
+                    $this,
                 ],
-                '[null, true, false, "string", 42, 3.14, [1, 2, 3], MF\\Stringify\\Fixture\\SomeClass, resource<stream>]',
+                '[null, true, false, "string", 42, 3.14, [1, 2, 3], MF\\Stringify\\Fixture\\SomeClass, resource<stream...]',
             ],
             'array - nested ints' => [
                 [1, [2, [3, 4]]],
@@ -89,11 +90,11 @@ class StringifyTest extends AbstractTestCase
             ],
             // DateTime
             'DateTime' => [
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2018-11-15 10:20:30'),
+                \DateTime::createFromFormat('Y-m-d H:i:s', '2018-11-15 10:20:30', new \DateTimeZone('UTC')),
                 'DateTime { 2018-11-15T10:20:30+00:00 }',
             ],
             'DateTimeImmutable' => [
-                \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2018-11-15 10:20:30'),
+                \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2018-11-15 10:20:30', new \DateTimeZone('UTC')),
                 'DateTimeImmutable { 2018-11-15T10:20:30+00:00 }',
             ],
             // Stringable
@@ -102,7 +103,7 @@ class StringifyTest extends AbstractTestCase
             // exception
             'exception' => [
                 new SomeException('message', 42),
-                'MF\\Stringify\\Fixture\\SomeException { "message", 42, /Users/chromecp/www/stringify/tests/StringifyTest.php #104 }',
+                'MF\\Stringify\\Fixture\\SomeException { "message", 42, ' . __DIR__ . '/StringifyTest.php #105 }',
             ],
             // json
             'json' => [
