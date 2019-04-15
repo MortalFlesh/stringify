@@ -103,7 +103,7 @@ class StringifyTest extends AbstractTestCase
             // exception
             'exception' => [
                 new SomeException('message', 42),
-                'MF\\Stringify\\Fixture\\SomeException { "message", 42, ' . __DIR__ . '/StringifyTest.php #105 }',
+                'MF\\Stringify\\Fixture\\SomeException { "message", 42, ' . __DIR__ . '/StringifyTest.php #' . (__LINE__ - 1) . ' }',
             ],
             // json
             'json' => [
