@@ -8,6 +8,7 @@ Changelog rules:
 -->
 
 ## Unreleased
+- Fix dev dependencies
 
 ## 2.0.0 - 2019-04-15
 - [**BC**] Change `Stringify::stringify` second parameter from `fullOutput` to more specific `shrinkOutput` and the default value from `false` to `true` to remain functionality of `stringify` function
