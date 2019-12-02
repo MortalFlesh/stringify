@@ -8,6 +8,8 @@ Changelog rules:
 -->
 
 ## Unreleased
+
+## 3.0.0 - 2019-12-02
 - Fix dev dependencies
 - [**BC**] Drop PHP 7.1 support
 
