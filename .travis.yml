@@ -1,12 +1,12 @@
 language: php
 php:
-    - '7.1'
     - '7.2'
+    - '7.4snapshot'
 
 matrix:
     include:
         -   name: 'Lowest dependencies'
-            php: '7.1'
+            php: '7.2'
             env: DEPENDENCIES="--prefer-lowest"
         -   name: 'Codestyle and static analysis'
             php: '7.3'
@@ -20,7 +20,6 @@ matrix:
 
 install:
     - travis_retry composer self-update && composer --version
-    - composer config -g github-oauth.github.com $GITHUB_OAUTH
     - travis_retry composer update --no-interaction $DEPENDENCIES
 
 script:
