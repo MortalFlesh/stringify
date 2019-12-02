@@ -17,11 +17,11 @@
         }
     },
     "require": {
-        "php": "^7.1"
+        "php": "^7.2"
     },
     "require-dev": {
         "lmc/coding-standard": "^1.1",
-        "mf/collections-php": "^3.18",
+        "mf/collections-php": "^4.0",
         "php-coveralls/php-coveralls": "^2.1",
         "phpstan/phpstan-shim": "^0.10",
         "phpunit/phpunit": "^7.0"
