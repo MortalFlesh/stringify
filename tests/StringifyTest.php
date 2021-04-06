@@ -16,18 +16,18 @@ use MF\Stringify\Fixture\StringableEntity;
 class StringifyTest extends AbstractTestCase
 {
     /**
-     * @dataProvider provideValue
+     * @dataProvider provideShrinkedValue
      *
      * @param mixed $value
      */
     public function testShouldStringifyValue($value, string $expected): void
     {
-        $result = Stringify::stringify($value);
+        $result = Stringify::stringify($value, true);
 
         $this->assertSame($expected, $result);
     }
 
-    public function provideValue(): array
+    public function provideShrinkedValue(): array
     {
         return [
             // value, expected
@@ -37,8 +37,8 @@ class StringifyTest extends AbstractTestCase
             'single space' => [' ', '" "'],
             'quoted string' => ['name "Jon"', '"name "Jon""'],
             'long string' => [
-                '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789ab',
-                '"0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456..."',
+                $this->longString(100, 'ab'),
+                sprintf('"%s"', $this->longString(97, '...')),
             ],
             // integer
             'int' => [42, '42'],
@@ -120,6 +120,13 @@ class StringifyTest extends AbstractTestCase
                 ]),
                 'MF\Stringify\Fixture\Json {"firstName":"Peter","surname":"Parker","address":{"city":"New York"},"alterego":"Spider-Man","sup...}',
             ],
+            'long array values' => [
+                [
+                    'key' => 'key for value',
+                    'value' => $this->longString(100, 'abc'),
+                ],
+                sprintf('["key" => "key for value", "value" => "%s...]', $this->longString(59)),
+            ],
         ];
     }
 
@@ -130,7 +137,7 @@ class StringifyTest extends AbstractTestCase
      */
     public function testShouldStringifyValueButNotShrinkLongOutput($value, string $expected): void
     {
-        $output = Stringify::stringify($value, false);
+        $output = Stringify::stringify($value);
 
         $this->assertSame($expected, $output);
     }
@@ -149,15 +156,34 @@ class StringifyTest extends AbstractTestCase
                 ]),
                 'MF\Stringify\Fixture\Json {"firstName":"Peter","surname":"Parker","address":{"city":"New York"},"alterego":"Spider-Man","superpower":"spider-senses"}',
             ],
+            'long array values' => [
+                [
+                    'key' => 'key for value',
+                    'value' => $this->longString(100, 'abc'),
+                ],
+                sprintf('["key" => "key for value", "value" => "%s"]', $this->longString(100, 'abc')),
+            ],
         ];
     }
 
     /**
-     * @dataProvider provideValue
+     * @dataProvider provideShrinkedValue
      *
      * @param mixed $value
      */
     public function testShouldStringifyValueViaFunction($value, string $expected): void
+    {
+        $result = stringify($value, true);
+
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @dataProvider provideLongOutput
+     *
+     * @param mixed $value
+     */
+    public function testShouldStringifyLongValueViaFunction($value, string $expected): void
     {
         $result = stringify($value);
 
