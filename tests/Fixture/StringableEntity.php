@@ -2,7 +2,7 @@
 
 namespace MF\Stringify\Fixture;
 
-class StringableEntity
+class StringableEntity implements \Stringable
 {
     public function __toString(): string
     {

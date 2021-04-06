@@ -15,12 +15,8 @@ use MF\Stringify\Fixture\StringableEntity;
  */
 class StringifyTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider provideShrinkedValue
-     *
-     * @param mixed $value
-     */
-    public function testShouldStringifyValue($value, string $expected): void
+    /** @dataProvider provideShrinkedValue */
+    public function testShouldStringifyValue(mixed $value, string $expected): void
     {
         $result = Stringify::stringify($value, true);
 
@@ -130,12 +126,8 @@ class StringifyTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideLongOutput
-     *
-     * @param mixed $value
-     */
-    public function testShouldStringifyValueButNotShrinkLongOutput($value, string $expected): void
+    /** @dataProvider provideLongOutput */
+    public function testShouldStringifyValueButNotShrinkLongOutput(mixed $value, string $expected): void
     {
         $output = Stringify::stringify($value);
 
@@ -166,24 +158,16 @@ class StringifyTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideShrinkedValue
-     *
-     * @param mixed $value
-     */
-    public function testShouldStringifyValueViaFunction($value, string $expected): void
+    /** @dataProvider provideShrinkedValue */
+    public function testShouldStringifyValueViaFunction(mixed $value, string $expected): void
     {
         $result = stringify($value, true);
 
         $this->assertSame($expected, $result);
     }
 
-    /**
-     * @dataProvider provideLongOutput
-     *
-     * @param mixed $value
-     */
-    public function testShouldStringifyLongValueViaFunction($value, string $expected): void
+    /** @dataProvider provideLongOutput */
+    public function testShouldStringifyLongValueViaFunction(mixed $value, string $expected): void
     {
         $result = stringify($value);
 
