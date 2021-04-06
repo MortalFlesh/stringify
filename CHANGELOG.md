@@ -8,6 +8,8 @@ Changelog rules:
 -->
 
 ## Unreleased
+
+## 4.0.0 - 2021-04-06
 - [**BC**] Require php 7.4 and update dependencies
 - [**BC**] Change `$shrinkLongOutput` default value from `true` to `false`
 - Add a second parameter `$shrinkLongOutput` to the `stringify` function
