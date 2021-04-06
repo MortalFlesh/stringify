@@ -19,7 +19,7 @@ const stringify = __NAMESPACE__ . '\\stringify';
  * stringify(['foo' => 'bar']);  // ["foo" => "bar"]
  * stringify(new \Foo\Bar());    // Foo\Bar
  */
-function stringify($value): string
+function stringify($value, bool $shrinkLongOutput = false): string
 {
-    return Stringify::stringify($value);
+    return Stringify::stringify($value, $shrinkLongOutput);
 }

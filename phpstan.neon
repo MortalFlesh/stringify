@@ -1,2 +1,7 @@
 parameters:
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
     ignoreErrors:
+        - '#Cannot call method __toString\(\) on class-string\|object.#'
+        - '#Cannot call method toString\(\) on class-string\|object.#'

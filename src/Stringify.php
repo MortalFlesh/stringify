@@ -19,7 +19,7 @@ class Stringify
      * Stringify::stringify(['foo' => 'bar']);  // ["foo" => "bar"]
      * Stringify::stringify(new \Foo\Bar());    // Foo\Bar
      */
-    public static function stringify($value, bool $shrinkLongOutput = true): string
+    public static function stringify($value, bool $shrinkLongOutput = false): string
     {
         if ($value === null) {
             return 'null';
@@ -79,6 +79,7 @@ class Stringify
         }, $keys, $values)), $shrinkLongOutput));
     }
 
+    /** @param mixed $value */
     private static function stringifyObject($value, bool $shrinkLongOutput): string
     {
         $valueClass = \get_class($value);

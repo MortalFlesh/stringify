@@ -6,4 +6,13 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
+    protected function longString(int $length, string $suffix = ''): string
+    {
+        $string = '';
+        for ($i = 1; $i <= $length; $i++) {
+            $string .= $i % 10;
+        }
+
+        return $string . $suffix;
+    }
 }
