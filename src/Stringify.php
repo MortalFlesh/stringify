@@ -79,6 +79,7 @@ class Stringify
         }, $keys, $values)), $shrinkLongOutput));
     }
 
+    /** @param mixed $value */
     private static function stringifyObject($value, bool $shrinkLongOutput): string
     {
         $valueClass = \get_class($value);

@@ -8,6 +8,7 @@ Changelog rules:
 -->
 
 ## Unreleased
+- [**BC**] Require php 7.4 and update dependencies
 
 ## 3.0.0 - 2019-12-02
 - Fix dev dependencies
