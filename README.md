@@ -2,7 +2,7 @@ Stringify
 =========
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/mf/stringify.svg)](https://packagist.org/packages/mf/stringify)
-[![Build Status](https://travis-ci.com/MortalFlesh/stringify.svg?branch=master)](https://travis-ci.com/MortalFlesh/stringify)
+[![Tests and linting](https://github.com/MortalFlesh/stringify/actions/workflows/tests.yaml/badge.svg)](https://github.com/MortalFlesh/stringify/actions/workflows/tests.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/stringify/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/stringify?branch=master)
 
 Simple and tiny class (function) to stringify anything in PHP.
