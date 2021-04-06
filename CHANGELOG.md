@@ -8,6 +8,7 @@ Changelog rules:
 -->
 
 ## Unreleased
+- [**BC**] Require php 8.0 and update dependencies
 
 ## 4.0.0 - 2021-04-06
 - [**BC**] Require php 7.4 and update dependencies

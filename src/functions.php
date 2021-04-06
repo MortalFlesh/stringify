@@ -5,8 +5,6 @@ namespace MF\Stringify;
 const stringify = __NAMESPACE__ . '\\stringify';
 
 /**
- * @param mixed $value of any type
- *
  * @example
  * stringify(null);              // null
  * stringify(true);              // true
@@ -19,7 +17,7 @@ const stringify = __NAMESPACE__ . '\\stringify';
  * stringify(['foo' => 'bar']);  // ["foo" => "bar"]
  * stringify(new \Foo\Bar());    // Foo\Bar
  */
-function stringify($value, bool $shrinkLongOutput = false): string
+function stringify(mixed $value, bool $shrinkLongOutput = false): string
 {
     return Stringify::stringify($value, $shrinkLongOutput);
 }
