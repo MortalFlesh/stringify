@@ -20,15 +20,20 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "lmc/coding-standard": "^3.0",
-        "mf/collections-php": "^6.0",
+        "lmc/coding-standard": "^3.2",
+        "mf/collections-php": "^6.1",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^0.12.83",
-        "phpstan/phpstan-phpunit": "^0.12.18",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "scripts": {
         "all": [
@@ -39,7 +44,7 @@
             "@cs",
             "@phpstan"
         ],
-        "phpstan": "vendor/bin/phpstan analyze ./src ./tests -c phpstan.neon --ansi --level 7",
+        "phpstan": "vendor/bin/phpstan analyze ./src ./tests -c phpstan.neon --ansi --level 8",
         "tests": "vendor/bin/phpunit",
         "tests-ci": "mkdir -p reports && php -dxdebug.coverage_enable=1 vendor/bin/phpunit -c phpunit.xml.dist",
         "cs": "vendor/bin/ecs check --ansi src/ tests/",
