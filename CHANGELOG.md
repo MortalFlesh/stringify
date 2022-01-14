@@ -8,6 +8,8 @@ Changelog rules:
 -->
 
 ## Unreleased
+
+## 5.1.0 - 2022-01-14
 - Allow php 8.1 and update dependencies
 
 ## 5.0.0 - 2021-04-06
