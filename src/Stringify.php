@@ -116,6 +116,6 @@ class Stringify
             );
         }
 
-        return $valueClass;
+        return (string) $valueClass;
     }
 }
