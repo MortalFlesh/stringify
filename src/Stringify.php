@@ -70,11 +70,22 @@ class Stringify
         [$firstKey] = $keys;
         $ignoreKeys = $firstKey === 0;
 
-        return sprintf('[%s]', self::shrink(implode(', ', array_map(function ($key, $value) use ($ignoreKeys) {
-            return $ignoreKeys
-                ? self::stringify($value)
-                : sprintf('%s => %s', self::stringify($key), self::stringify($value));
-        }, $keys, $values)), $shrinkLongOutput));
+        return sprintf(
+            '[%s]',
+            self::shrink(
+                implode(
+                    ', ',
+                    array_map(
+                        fn ($key, $value) => $ignoreKeys
+                            ? self::stringify($value)
+                            : sprintf('%s => %s', self::stringify($key), self::stringify($value)),
+                        $keys,
+                        $values
+                    )
+                ),
+                $shrinkLongOutput
+            )
+        );
     }
 
     private static function stringifyObject(mixed $value, bool $shrinkLongOutput): string
