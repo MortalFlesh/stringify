@@ -8,6 +8,9 @@ Changelog rules:
 -->
 
 ## Unreleased
+- [**BC**] Require php 8.1
+- Support php 8.2 and 8.3
+- Update dependencies
 
 ## 5.1.0 - 2022-01-14
 - Allow php 8.1 and update dependencies
