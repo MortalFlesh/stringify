@@ -30,11 +30,8 @@ use function MF\Stringify\stringify;
 echo stringify([1, 2, 3]);   // "[1, 2, 3]"
 ```
 
-**Bonus**: Standalone function may be used through a constant with its FQN
 ```php
-use const MF\Stringify\stringify;
-
-$result = array_map(stringify, [1, 'two']); // ['1', '"two"']
+$result = array_map(stringify(...), [1, 'two']); // ['1', '"two"']
 ```
 
 ### Sprintf bonus

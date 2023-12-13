@@ -2,6 +2,7 @@
 
 namespace MF\Stringify;
 
+/** @deprecated It is not that useful now, since the stringify(...) notation */
 const stringify = __NAMESPACE__ . '\\stringify';
 
 /**
