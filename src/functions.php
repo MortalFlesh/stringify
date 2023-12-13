@@ -21,3 +21,31 @@ function stringify(mixed $value, bool $shrinkLongOutput = false): string
 {
     return Stringify::stringify($value, $shrinkLongOutput);
 }
+
+/**
+ * Works the same as a \sprintf() function but with additional %A placeholder.
+ *
+ * %A placeholder stringify any value.
+ * @see stringify()
+ *
+ * @phpstan-param mixed $args
+ */
+function sprintf(string $format, ...$args): string
+{
+    if (str_contains($format, '%A')) {
+        preg_match_all('/((?<!%)%[a-zA-Z])/', $format, $matches);
+        $matches = $matches[0] ?? [];
+        $format = (string) preg_replace('/((?<!%)%A)/', '%s', $format);
+
+        $modifiedArgs = [];
+        foreach ($args as $i => $arg) {
+            $modifiedArgs[$i] = ($matches[$i] ?? null) === '%A'
+                 ? stringify($arg)
+                 : $arg;
+        }
+
+        $args = $modifiedArgs;
+    }
+
+    return \sprintf($format, ...$args);
+}

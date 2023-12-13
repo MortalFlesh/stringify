@@ -37,6 +37,16 @@ use const MF\Stringify\stringify;
 $result = array_map(stringify, [1, 'two']); // ['1', '"two"']
 ```
 
+### Sprintf bonus
+> with a new `%A` placeholder for `stringify` function
+
+```php
+use function MF\Stringify\sprintf;
+
+echo sprintf('Hello %A!', 'world');     // Hello "world"!
+echo sprintf('Hello %A!', ['world']);   // Hello ["world"]!
+```
+
 ## Example
 
 _NOTE: values longer than 100 chars is shrinked to 100 chars with `...` suffix_

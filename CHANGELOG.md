@@ -10,6 +10,7 @@ Changelog rules:
 ## Unreleased
 - [**BC**] Require php 8.2
 - Update dependencies
+- Add `sprintf` function with a `%A` placeholder for `stringify` function
 
 ## 6.0.0 - 2023-12-13
 - [**BC**] Require php 8.1
