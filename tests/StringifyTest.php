@@ -2,8 +2,8 @@
 
 namespace MF\Stringify;
 
-use MF\Collection\Immutable\Seq;
-use MF\Collection\Mutable\Map;
+use MF\Collection\Immutable\Generic\Seq;
+use MF\Collection\Mutable\Generic\Map;
 use MF\Stringify\Fixture\Entity;
 use MF\Stringify\Fixture\Json;
 use MF\Stringify\Fixture\SomeClass;
@@ -23,7 +23,7 @@ class StringifyTest extends AbstractTestCase
         $this->assertSame($expected, $result);
     }
 
-    public function provideShrinkedValue(): array
+    public static function provideShrinkedValue(): array
     {
         return [
             // value, expected
@@ -33,8 +33,8 @@ class StringifyTest extends AbstractTestCase
             'single space' => [' ', '" "'],
             'quoted string' => ['name "Jon"', '"name "Jon""'],
             'long string' => [
-                $this->longString(100, 'ab'),
-                sprintf('"%s"', $this->longString(97, '...')),
+                self::longString(100, 'ab'),
+                sprintf('"%s"', self::longString(97, '...')),
             ],
             // integer
             'int' => [42, '42'],
@@ -62,7 +62,7 @@ class StringifyTest extends AbstractTestCase
                     [1, 2, 3],
                     new SomeClass(),
                     fopen(__DIR__ . '/StringifyTest.php', 'rb'),
-                    $this,
+                    self::class,
                 ],
                 '[null, true, false, "string", 42, 3.14, [1, 2, 3], MF\\Stringify\\Fixture\\SomeClass, resource<stream...]',
             ],
@@ -79,10 +79,10 @@ class StringifyTest extends AbstractTestCase
                 '["person" => ["name" => "Peter Parker"], "alterego" => "spider-man"]',
             ],
             // Traversable
-            'sequence of ints' => [Seq::range('1..4'), 'MF\Collection\Immutable\Seq [1, 2, 3, 4]'],
+            'sequence of ints' => [Seq::range('1..4'), 'MF\Collection\Immutable\Generic\Seq [1, 2, 3, 4]'],
             'map' => [
                 Map::from(['firstName' => 'Peter', 'surname' => 'Parker']),
-                'MF\Collection\Mutable\Map ["firstName" => "Peter", "surname" => "Parker"]',
+                'MF\Collection\Mutable\Generic\Map ["firstName" => "Peter", "surname" => "Parker"]',
             ],
             // DateTime
             'DateTime' => [
@@ -119,9 +119,9 @@ class StringifyTest extends AbstractTestCase
             'long array values' => [
                 [
                     'key' => 'key for value',
-                    'value' => $this->longString(100, 'abc'),
+                    'value' => self::longString(100, 'abc'),
                 ],
-                sprintf('["key" => "key for value", "value" => "%s...]', $this->longString(59)),
+                sprintf('["key" => "key for value", "value" => "%s...]', self::longString(59)),
             ],
         ];
     }
@@ -134,7 +134,7 @@ class StringifyTest extends AbstractTestCase
         $this->assertSame($expected, $output);
     }
 
-    public function provideLongOutput(): array
+    public static function provideLongOutput(): array
     {
         return [
             // value, expected
@@ -151,9 +151,9 @@ class StringifyTest extends AbstractTestCase
             'long array values' => [
                 [
                     'key' => 'key for value',
-                    'value' => $this->longString(100, 'abc'),
+                    'value' => self::longString(100, 'abc'),
                 ],
-                sprintf('["key" => "key for value", "value" => "%s"]', $this->longString(100, 'abc')),
+                sprintf('["key" => "key for value", "value" => "%s"]', self::longString(100, 'abc')),
             ],
         ];
     }
