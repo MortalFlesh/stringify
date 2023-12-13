@@ -8,6 +8,8 @@ Changelog rules:
 -->
 
 ## Unreleased
+
+## 6.0.0 - 2023-12-13
 - [**BC**] Require php 8.1
 - Support php 8.2 and 8.3
 - Update dependencies
